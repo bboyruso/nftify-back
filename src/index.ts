@@ -1,6 +1,6 @@
 import "./loadEnviroment.js";
-import chalk from "chalk";
 import createDebug from "debug";
+import chalk from "chalk";
 import app from "./server/app.js";
 
 const debug = createDebug("nftify-api:root");
