@@ -9,5 +9,7 @@ module.exports = {
     "src/**/*.tsx",
     "!src/**/index.ts",
     "!src/server/routers/**/*",
+    "!src/loadEnvironment.ts",
+    "!src/database/connectToDatabase.ts",
   ],
 };
