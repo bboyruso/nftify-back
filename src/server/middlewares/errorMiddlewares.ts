@@ -1,6 +1,6 @@
 import { type Request, type Response, type NextFunction } from "express";
 import createDebug from "debug";
-import type CustomError from "../CustomError/CustomError.js";
+import CustomError from "../CustomError/CustomError.js";
 
 const debug = createDebug("nftify-api:server:middlewares:errorMiddlewares");
 
@@ -16,4 +16,14 @@ export const generalError = (
   const message = error.statusCode ? error.message : "General error";
 
   res.status(statusCode).json({ message });
+};
+
+export const notFoundError = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const error = new CustomError(404, "Endpoint not found");
+
+  next(error);
 };
