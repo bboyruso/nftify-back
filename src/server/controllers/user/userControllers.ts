@@ -1,24 +1,28 @@
-import { type Response, type NextFunction } from "express";
-import CustomError from "../../CustomError/CustomError.js";
-import User from "../../../database/models/User.js";
-import { type UserCredentialsRequest } from "../../types";
-import { type JwtPayload } from "jsonwebtoken";
-import jwt from "jsonwebtoken";
+import { type NextFunction, type Response } from "express";
+import jwt, { type JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import { type UserCredentialsRequest } from "../../types";
+import User from "../../../database/models/User.js";
+import CustomError from "../../CustomError/CustomError.js";
 
-const loginUser = async (
+export const loginUser = async (
   req: UserCredentialsRequest,
   res: Response,
   next: NextFunction
 ) => {
   const { username, password } = req.body;
+
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username }).exec();
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      const customError = new CustomError(401, "Username or password wrong");
+      const error = new CustomError(
+        401,
+        "Wrong Credentials",
+        "You try to login with Wrong Credentials"
+      );
 
-      throw customError;
+      throw error;
     }
 
     const tokenPayload: JwtPayload = {
@@ -30,12 +34,8 @@ const loginUser = async (
       expiresIn: "7d",
     });
 
-    jwt.verify(token, process.env.JWT_SECRET!);
-
     res.status(200).json({ token });
-  } catch (error: unknown) {
+  } catch (error) {
     next(error);
   }
 };
-
-export default loginUser;
