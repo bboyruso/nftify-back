@@ -1,4 +1,4 @@
-import { type NextFunction, type Response } from "express";
+import { type NextFunction, type Response, type Request } from "express";
 import Item from "../../../database/models/Items";
 
 export const getItems = async (
@@ -7,7 +7,7 @@ export const getItems = async (
   next: NextFunction
 ) => {
   try {
-    const item = await Item.find().exec();
+    const item = await Item.find().limit(10).exec();
 
     res.status(200);
     res.json({ item });
