@@ -5,6 +5,10 @@ export interface UserCredentials {
   username: string;
   password: string;
 }
+export interface ItemCredentials {
+  username: string;
+  password: string;
+}
 
 export interface UserCredentialsStructure extends UserCredentials {
   _id: string;
