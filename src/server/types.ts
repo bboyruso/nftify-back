@@ -5,9 +5,17 @@ export interface UserCredentials {
   username: string;
   password: string;
 }
-export interface ItemCredentials {
-  username: string;
-  password: string;
+export interface ItemStructure {
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  author: string;
+  user: Types.ObjectId;
+}
+
+export interface ItemDataStructure extends ItemStructure {
+  _id: Types.ObjectId;
 }
 
 export interface UserCredentialsStructure extends UserCredentials {
