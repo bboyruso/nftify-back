@@ -4,6 +4,7 @@ import morgan from "morgan";
 import { generalError, notFoundError } from "./middlewares/errorMiddlewares.js";
 import { pingController } from "./controllers/ping/pingController.js";
 import userRouter from "./routers/users/userRouter.js";
+import itemRouter from "./routers/items/itemsRouter.js";
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.use(express.json());
 app.get("/ping", pingController);
 
 app.use("/user", userRouter);
+
+app.use("/nfts", itemRouter);
 
 app.use(generalError);
 
