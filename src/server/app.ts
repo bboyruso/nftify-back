@@ -22,7 +22,7 @@ app.get("/ping", pingController);
 
 app.use("/user", userRouter);
 
-app.use("/user", itemRouter);
+app.use("/nfts", itemRouter);
 
 app.use(generalError);
 

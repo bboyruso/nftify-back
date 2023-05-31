@@ -22,12 +22,12 @@ describe("Given a GET 'user/items' endpoint", () => {
   beforeEach(async () => {
     await Item.create(itemsMock);
   });
+
   describe("Given a POST 'user/login' endpoint", () => {
     test("Given a POST 'user/login' endpoint", async () => {
       const expectedStatus = 200;
-      const response = await request(app)
-        .get("/user/items")
-        .expect(expectedStatus);
+      const response = await request(app).get("/nfts").expect(expectedStatus);
+      console.log(response.body);
 
       expect(response.body).toHaveLength(2);
     });

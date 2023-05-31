@@ -10,7 +10,7 @@ export const getItems = async (
     const item = await Item.find().limit(10).exec();
 
     res.status(200);
-    res.json({ item });
+    res.json(item);
   } catch (error) {
     next(error);
   }
