@@ -1,5 +1,5 @@
 import { type NextFunction, type Response, type Request } from "express";
-import Item from "../../../database/models/Items";
+import Item from "../../../database/models/Item.js";
 
 export const getItems = async (
   req: Request,

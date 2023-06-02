@@ -1,5 +1,5 @@
 import mongoose, { Types } from "mongoose";
-import User from "./User";
+import User from "./User.js";
 
 const itemSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -10,7 +10,6 @@ const itemSchema = new mongoose.Schema({
   user: {
     type: Types.ObjectId,
     ref: User,
-    required: true,
   },
 });
 
