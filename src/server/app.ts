@@ -1,4 +1,5 @@
 import express from "express";
+import compression from "compression";
 import cors from "cors";
 import morgan from "morgan";
 import { generalError, notFoundError } from "./middlewares/errorMiddlewares.js";
@@ -9,6 +10,8 @@ import itemRouter from "./routers/items/itemsRouter.js";
 const app = express();
 
 const trustedOrigins = [process.env.ALLOWED_ORIGIN_DEV!];
+
+app.use(compression());
 
 app.use(cors({ origin: trustedOrigins }));
 
