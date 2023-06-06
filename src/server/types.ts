@@ -36,3 +36,18 @@ export interface MockUserCredentials {
   username: string;
   password: number;
 }
+
+export interface CustomRequest extends Request {
+  params: {
+    itemId: string;
+  };
+  body: RequestBodyItemStructure;
+}
+
+export interface RequestBodyItemStructure {
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  author: string;
+}
