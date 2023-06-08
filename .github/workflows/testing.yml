@@ -23,3 +23,4 @@ jobs:
           ALLOWED_ORIGIN_DEV: ${{ secrets.ALLOWED_ORIGIN_DEV }}
           MONGODB_CONNECTION: ${{ secrets.MONGODB_CONNECTION }}
           ALLOWED_ORIGIN_PROD: ${{ secrets.ALLOWED_ORIGIN_PROD }}
+
