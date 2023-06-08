@@ -38,7 +38,7 @@ export const deleteItem = async (
   }
 };
 
-export const addItems = async (
+export const addItem = async (
   req: CustomRequest,
   res: Response,
   next: NextFunction
