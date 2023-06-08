@@ -37,3 +37,19 @@ export const deleteItem = async (
     next(error);
   }
 };
+
+export const addItems = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { body } = req;
+  try {
+    const item = await Item.create({ ...body });
+
+    res.status(201);
+    res.json({ item });
+  } catch (error) {
+    next(error);
+  }
+};
