@@ -21,3 +21,12 @@ export const itemsMock: ItemDataStructure[] = [
     user: new Types.ObjectId("64710077b5f9829cfe43b677"),
   },
 ];
+
+export const addItemBodyMock = {
+  title: "Another NFT",
+  description: "best nft witch you never see before",
+  price: 3.5,
+  image: "url/1.webp",
+  author: "Angelina",
+  user: new Types.ObjectId("64710077b5f9829cfe43b677"),
+};

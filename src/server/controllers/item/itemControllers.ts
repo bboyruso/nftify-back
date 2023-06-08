@@ -28,11 +28,27 @@ export const deleteItem = async (
   try {
     const itemToDelete = await Item.findByIdAndDelete(itemId).exec();
 
-    if (itemToDelete) {
-      return res.status(200).json({ message: "NFT deleted successfully" });
+    if (!itemToDelete) {
+      throw new CustomError(404, "NFT not found");
     }
 
-    throw new CustomError(404, "NFT not found");
+    res.status(200).json({ message: "NFT deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addItem = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { body } = req;
+  try {
+    const item = await Item.create({ ...body });
+
+    res.status(201);
+    res.json({ item });
   } catch (error) {
     next(error);
   }
