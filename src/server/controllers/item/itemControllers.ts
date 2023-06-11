@@ -16,10 +16,12 @@ export const getItems = async (
   const reqSkip = Number(skip);
 
   try {
-    const item = await Item.find().skip(reqSkip).limit(reqLimit).exec();
+    const nfts = await Item.find().skip(reqSkip).limit(reqLimit).exec();
+
+    const length = await Item.countDocuments();
 
     res.status(200);
-    res.json(item);
+    res.json({ nfts, length });
   } catch (error) {
     next(error);
   }
