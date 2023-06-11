@@ -41,6 +41,12 @@ export interface CustomRequest extends Request {
   params: {
     itemId: string;
   };
+
+  query: {
+    skip: string;
+    limit: string;
+  };
+
   body: RequestBodyItemStructure;
 }
 

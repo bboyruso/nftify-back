@@ -1,15 +1,22 @@
-import { type NextFunction, type Response, type Request } from "express";
+import { type NextFunction, type Response } from "express";
 import Item from "../../../database/models/Item.js";
 import CustomError from "../../CustomError/CustomError.js";
 import { type CustomRequest } from "../../types.js";
 
 export const getItems = async (
-  req: Request,
+  req: CustomRequest,
   res: Response,
   next: NextFunction
 ) => {
+  const {
+    query: { limit, skip },
+  } = req;
+
+  const reqLimit = Number(limit);
+  const reqSkip = Number(skip);
+
   try {
-    const item = await Item.find().limit(10).exec();
+    const item = await Item.find().skip(reqSkip).limit(reqLimit).exec();
 
     res.status(200);
     res.json(item);

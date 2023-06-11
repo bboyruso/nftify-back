@@ -1,7 +1,8 @@
-import { type NextFunction, type Response, type Request } from "express";
+import { type NextFunction, type Response } from "express";
 import { itemsMock } from "../../../../mocks/items.js";
 import { getItems } from "../itemControllers.js";
 import Item from "../../../../database/models/Item.js";
+import { type CustomRequest } from "../../../types.js";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -27,7 +28,11 @@ describe("Given a getItems controller", () => {
     test("Then it should call the response's method status code with 200", async () => {
       const expectedStatusCode = 200;
 
-      await getItems(req as Request, res as Response, next as NextFunction);
+      await getItems(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
 
       expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
     });
@@ -45,7 +50,11 @@ describe("Given a getItems controller", () => {
         }),
       });
 
-      await getItems(req as Request, res as Response, next as NextFunction);
+      await getItems(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
 
       expect(next).toHaveBeenCalledWith(expectedError);
     });
