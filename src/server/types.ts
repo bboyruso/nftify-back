@@ -50,6 +50,20 @@ export interface CustomRequest extends Request {
   body: RequestBodyItemStructure;
 }
 
+export interface CustomReqRequest extends Request {
+  query: {
+    skip: string;
+    limit: string;
+  };
+  body: RequestBodyItemStructure;
+}
+export interface CustomReqRequest1 extends Request {
+  query: {
+    skip: string;
+    limit: string;
+  };
+}
+
 export interface RequestBodyItemStructure {
   title: string;
   description: string;

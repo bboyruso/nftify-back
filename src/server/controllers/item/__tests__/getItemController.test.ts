@@ -11,25 +11,40 @@ beforeEach(() => {
 describe("Given a getItems controller", () => {
   const next = jest.fn();
 
-  const req = {};
-
   const res: Pick<Response, "status" | "json"> = {
     status: jest.fn().mockReturnThis(),
     json: jest.fn(),
   };
 
+  const req = {
+    query: {
+      limit: 5,
+      skip: 0,
+    },
+    params: {
+      itemId: "jhgf",
+    },
+  };
   describe("When it receive a response", () => {
-    Item.find = jest.fn().mockReturnValue({
-      limit: jest.fn().mockReturnValue({
-        exec: jest.fn().mockResolvedValue(itemsMock),
-      }),
-    });
-
     test("Then it should call the response's method status code with 200", async () => {
       const expectedStatusCode = 200;
 
+      Item.find = jest.fn().mockReturnValue({
+        skip: jest.fn().mockReturnValue({
+          limit: jest.fn().mockReturnValue({
+            exec: jest.fn().mockResolvedValue(itemsMock),
+          }),
+        }),
+      });
+
+      Item.countDocuments = jest.fn().mockReturnValue({
+        countDocuments: jest.fn().mockReturnValue({
+          exec: jest.fn().mockReturnValue(itemsMock.length),
+        }),
+      });
+
       await getItems(
-        req as CustomRequest,
+        req as unknown as CustomRequest,
         res as Response,
         next as NextFunction
       );
@@ -45,17 +60,18 @@ describe("Given a getItems controller", () => {
       );
 
       Item.find = jest.fn().mockReturnValue({
-        limit: jest.fn().mockReturnValue({
-          exec: jest.fn().mockRejectedValue(expectedError),
+        skip: jest.fn().mockReturnValue({
+          limit: jest.fn().mockReturnValue({
+            exec: jest.fn().mockRejectedValue(expectedError),
+          }),
         }),
       });
 
       await getItems(
-        req as CustomRequest,
+        req as unknown as CustomRequest,
         res as Response,
         next as NextFunction
       );
-
       expect(next).toHaveBeenCalledWith(expectedError);
     });
   });
