@@ -62,3 +62,23 @@ export const addItem = async (
     next(error);
   }
 };
+
+export const getItemById = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { itemId } = req.params;
+
+  try {
+    const item = await Item.findById(itemId).exec();
+
+    if (!item) {
+      throw new CustomError(404, "NFT not found");
+    }
+
+    res.status(200).json(item);
+  } catch (error) {
+    next(error);
+  }
+};
