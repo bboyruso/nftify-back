@@ -16,7 +16,11 @@ export const getItems = async (
   const reqSkip = Number(skip);
 
   try {
-    const nfts = await Item.find().skip(reqSkip).limit(reqLimit).exec();
+    const nfts = await Item.find()
+      .sort({ _id: -1 })
+      .skip(reqSkip)
+      .limit(reqLimit)
+      .exec();
 
     const length = await Item.countDocuments();
 
