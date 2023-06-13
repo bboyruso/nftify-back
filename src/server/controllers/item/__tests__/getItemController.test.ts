@@ -30,6 +30,7 @@ describe("Given a getItems controller", () => {
       const expectedStatusCode = 200;
 
       Item.find = jest.fn().mockReturnValue({
+        sort: jest.fn().mockReturnThis(),
         skip: jest.fn().mockReturnValue({
           limit: jest.fn().mockReturnValue({
             exec: jest.fn().mockResolvedValue(itemsMock),
@@ -55,11 +56,10 @@ describe("Given a getItems controller", () => {
 
   describe("When it receive a response without Items", () => {
     test("Then it should call the received next function with a error", async () => {
-      const expectedError = new Error(
-        "Error connecting database to get routes"
-      );
+      const expectedError = new Error("Error connecting database to get nfts");
 
       Item.find = jest.fn().mockReturnValue({
+        sort: jest.fn().mockReturnThis(),
         skip: jest.fn().mockReturnValue({
           limit: jest.fn().mockReturnValue({
             exec: jest.fn().mockRejectedValue(expectedError),
