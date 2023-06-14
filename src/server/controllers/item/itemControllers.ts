@@ -1,7 +1,7 @@
 import { type NextFunction, type Response } from "express";
 import Item from "../../../database/models/Item.js";
 import CustomError from "../../CustomError/CustomError.js";
-import { type CustomRequest } from "../../types.js";
+import { type CustomUpdateRequest, type CustomRequest } from "../../types.js";
 
 export const getItems = async (
   req: CustomRequest,
@@ -82,6 +82,27 @@ export const getItemById = async (
     }
 
     res.status(200).json(item);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateItem = async (
+  req: CustomUpdateRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { body } = req;
+  const { _id } = req.body;
+
+  try {
+    const item = await Item.findByIdAndUpdate(_id, { ...body }).exec();
+
+    if (!item) {
+      throw new CustomError(404, "NFT not found");
+    }
+
+    res.status(200).json({ message: "NFT updated successfully" });
   } catch (error) {
     next(error);
   }
