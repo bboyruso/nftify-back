@@ -71,3 +71,14 @@ export interface RequestBodyItemStructure {
   image: string;
   author: string;
 }
+
+export interface CustomUpdateRequest extends Request {
+  body: {
+    _id: string;
+    title: string;
+    description: string;
+    price: number;
+    image: string;
+    author: string;
+  };
+}
