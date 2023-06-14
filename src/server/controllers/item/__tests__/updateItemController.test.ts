@@ -1,8 +1,8 @@
 import { type NextFunction, type Response } from "express";
 import Item from "../../../../database/models/Item";
 import { itemsMock } from "../../../../mocks/items";
-import { type CustomUpdateRequest, type CustomRequest } from "../../../types";
-import { deleteItem, updateItem } from "../itemControllers";
+import { type CustomUpdateRequest } from "../../../types";
+import { updateItem } from "../itemControllers";
 import CustomError from "../../../CustomError/CustomError";
 
 beforeEach(() => {
