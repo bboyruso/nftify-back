@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   addItem,
   deleteItem,
+  getItemsByPrice,
   getItemById,
   getItems,
   updateItem,
@@ -10,6 +11,8 @@ import {
 const itemRouter = Router();
 
 itemRouter.get("/", getItems);
+
+itemRouter.get("/filter", getItemsByPrice);
 
 itemRouter.get("/:itemId", getItemById);
 

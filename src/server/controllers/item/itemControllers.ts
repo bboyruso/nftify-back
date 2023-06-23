@@ -31,6 +31,33 @@ export const getItems = async (
   }
 };
 
+export const getItemsByPrice = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const maxPrice = Number(req.query.maxPrice);
+  const minPrice = Number(req.query.minPrice);
+  const limit = Number(req.query.limit);
+  const skip = Number(req.query.skip);
+
+  try {
+    const nfts = await Item.find({
+      price: { $gt: minPrice, $lt: maxPrice },
+    })
+      .skip(skip)
+      .limit(limit)
+      .exec();
+
+    const length = await Item.countDocuments();
+
+    res.status(200);
+    res.json({ nfts, length });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const deleteItem = async (
   req: CustomRequest,
   res: Response,
