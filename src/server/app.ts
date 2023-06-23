@@ -16,7 +16,7 @@ const trustedOrigins = [
 
 app.use(compression());
 
-// App.use(cors({ origin: trustedOrigins }));
+app.use(cors({ origin: trustedOrigins }));
 
 app.disable("x-powered-by");
 
