@@ -36,20 +36,31 @@ export const getItemsByPrice = async (
   res: Response,
   next: NextFunction
 ) => {
-  const maxPrice = Number(req.query.maxPrice);
-  const minPrice = Number(req.query.minPrice);
+  const maxPrice = Number(req.query.max);
+  const minPrice = Number(req.query.min);
   const limit = Number(req.query.limit);
   const skip = Number(req.query.skip);
 
   try {
     const nfts = await Item.find({
-      price: { $gt: minPrice, $lt: maxPrice },
+      price: {
+        $gt: minPrice ? minPrice : 0,
+        $lt: maxPrice ? maxPrice : Infinity,
+      },
     })
       .skip(skip)
       .limit(limit)
+      .sort({ _id: -1 })
       .exec();
 
-    const length = await Item.countDocuments();
+    const length = await Item.find({
+      price: {
+        $gt: minPrice ? minPrice : 0,
+        $lt: maxPrice ? maxPrice : Infinity,
+      },
+    })
+      .countDocuments()
+      .exec();
 
     res.status(200);
     res.json({ nfts, length });

@@ -45,8 +45,8 @@ export interface CustomRequest extends Request {
   query: {
     skip: string;
     limit: string;
-    maxPrice?: string;
-    minPrice?: string;
+    max: string;
+    min: string;
   };
 
   body: RequestBodyItemStructure;
