@@ -45,6 +45,8 @@ export interface CustomRequest extends Request {
   query: {
     skip: string;
     limit: string;
+    max: string;
+    min: string;
   };
 
   body: RequestBodyItemStructure;

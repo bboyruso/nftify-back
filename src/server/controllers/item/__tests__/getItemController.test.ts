@@ -1,8 +1,9 @@
 import { type NextFunction, type Response } from "express";
 import { itemsMock } from "../../../../mocks/items.js";
-import { getItems } from "../itemControllers.js";
+
 import Item from "../../../../database/models/Item.js";
 import { type CustomRequest } from "../../../types.js";
+import { getItems } from "../itemControllers.js";
 
 beforeEach(() => {
   jest.clearAllMocks();
