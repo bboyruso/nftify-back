@@ -66,6 +66,7 @@ describe("Given a POST 'user/login' endpoint", () => {
       const invalidMockUser: UserCredentials = {
         username: "admi",
         password: "admi",
+        email: "any@gmail.com",
       };
 
       const expectedStatus = 401;
