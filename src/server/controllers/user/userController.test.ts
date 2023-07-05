@@ -22,6 +22,7 @@ describe("Given a loginUser controller", () => {
     body: {
       username: "admin",
       password: "admin",
+      email: "any@gmail.com",
     },
   };
 
@@ -39,6 +40,7 @@ describe("Given a loginUser controller", () => {
       _id: new Types.ObjectId().toString(),
       username: "admin",
       password: "admin",
+      email: "any@gmail.com",
     };
 
     User.findOne = jest.fn().mockReturnValue({

@@ -39,3 +39,42 @@ export const loginUser = async (
     next(error);
   }
 };
+
+export const registerUser = async (
+  req: UserCredentialsRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { username, email, password, name } = req.body;
+
+  try {
+    if (!username || !email || !password) {
+      throw new CustomError(400, "Please, check the registration data.");
+    }
+
+    const existingEmail = await User.findOne({ email }).exec();
+    const existingUser = await User.findOne({ username }).exec();
+
+    if (existingEmail) {
+      throw new CustomError(
+        409,
+        `An account with email ${email} already exists.`
+      );
+    }
+
+    if (existingUser) {
+      throw new CustomError(
+        409,
+        `An account with username ${username} already exists.`
+      );
+    }
+
+    const newUser = new User({ username, email, password, name });
+
+    await newUser.save();
+
+    res.status(201).json({ message: "User registered successfully." });
+  } catch (error) {
+    next(error);
+  }
+};

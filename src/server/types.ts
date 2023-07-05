@@ -4,7 +4,10 @@ import { type Types } from "mongoose";
 export interface UserCredentials {
   username: string;
   password: string;
+  email?: string;
+  name?: string;
 }
+
 export interface ItemStructure {
   title: string;
   description: string;
@@ -83,4 +86,11 @@ export interface CustomUpdateRequest extends Request {
     image: string;
     author: string;
   };
+}
+
+export interface RegisterCredentials {
+  username: string;
+  password: string;
+  email: string;
+  name?: string;
 }
