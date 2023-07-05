@@ -52,11 +52,20 @@ export const registerUser = async (
       throw new CustomError(400, "Please, check the registration data.");
     }
 
-    const existingUser = await User.findOne({ email }).exec();
-    if (existingUser) {
+    const existingEmail = await User.findOne({ email }).exec();
+    const existingUser = await User.findOne({ username }).exec();
+
+    if (existingEmail) {
       throw new CustomError(
         409,
         `An account with email ${email} already exists.`
+      );
+    }
+
+    if (existingUser) {
+      throw new CustomError(
+        409,
+        `An account with username ${username} already exists.`
       );
     }
 
