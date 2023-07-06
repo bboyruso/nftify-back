@@ -2,7 +2,7 @@ import { type Request, type Response, type NextFunction } from "express";
 import createDebug from "debug";
 import CustomError from "../CustomError/CustomError.js";
 
-const debug = createDebug("nftify-api:server:middlewares:errorMiddlewares");
+const debug = createDebug("nftify-api-server-error:");
 
 export const generalError = (
   error: CustomError,
