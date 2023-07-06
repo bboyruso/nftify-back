@@ -71,8 +71,10 @@ export const registerUser = async (
 
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
+    console.log(password);
+    console.log(hashPassword);
 
-    const newUser = new User({ username, email, hashPassword, name });
+    const newUser = new User({ username, password: hashPassword, email, name });
 
     await newUser.save();
 
