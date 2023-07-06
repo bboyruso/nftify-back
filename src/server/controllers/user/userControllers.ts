@@ -69,7 +69,10 @@ export const registerUser = async (
       );
     }
 
-    const newUser = new User({ username, email, password, name });
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(password, salt);
+
+    const newUser = new User({ username, email, hashPassword, name });
 
     await newUser.save();
 
